@@ -6,7 +6,16 @@
 //  Copyright © 2016 Daniel Spindelbauer. All rights reserved.
 //
 
+
+//
+// TODO
+//  - Choose input method (random array - manual array - array from file)
+//  - Make array from file
+//  - Figure out why doesn't 8 work, when it has a manual array
+//  - Fix 7
+
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 // Global variables
@@ -15,20 +24,32 @@ using namespace std;
 
     // Initiating array
     int a[10];
-
-    //  int a[10]={1,11,314,2,5,5,7,8,14,22}; // Manual array
+    // int a[10]={1,11,314,2,5,5,7,8,14,22}; // Manual array
 
     // Get size of (global) 'a' array
     int aSize = sizeof(a)/sizeof(a[0]);
 
 
-
-
-
+    // ifstream readFile("fileInput.txt");
+    // ofstream writeFile("fileInput.txt");
 
 // ------------------------
 
-int osszegzes(){
+
+int printA(){
+    for (int c=0; c < aSize; c++) {
+        // Don't print comma after the last element of the array
+        if (aSize-1 != c) {
+            cout<<a[c]<<", ";
+        } else {
+            cout<<a[c]<<endl;
+        }
+    }
+    
+    return 0;
+}
+
+int osszegzes(){ // 1
     int sum=0;
     for (int i=0; i<aSize; i++) {
         sum+=a[i];
@@ -38,16 +59,13 @@ int osszegzes(){
     return 0;
 }
 
-int faktorialis(){
-    // ===============
-    //       TODO
-    // ===============
+int faktorialis(){ // 10
     int fakt;
     cout<<"Hany faktorialis: ";
     cin>>fakt;
     int result=1;
     
-    for (int i=2; i<fakt; i++) {
+    for (int i=2; i<=fakt; i++) {
         result*=i;
     }
     cout<<result<<endl;
@@ -55,7 +73,7 @@ int faktorialis(){
     return 0;
 }
 
-int eldontes(){
+int eldontes(){ // 2
     // Bigger than 10
     const int cond=10; // Condition
     int i=0;
@@ -73,19 +91,19 @@ int eldontes(){
     return 0;
 }
 
-int kivalasztas(){
+int kivalasztas(){ // 3
     // Bigger than 10
     const int cond=10; // Condition
     int i=0;
     while (a[i]<cond) {
         i++;
     }
-    cout<<"10-nel nagyobb elem az "<<i<<". elem"<<endl;
+    cout<<"10-nel nagyobb elem az "<<i+1<<". elem"<<endl;
     
     return 0;
 }
 
-int linearis_kereses(){
+int linearis_kereses(){ // 4
     // Bigger than 10
     const int cond=10; // Condition
     int i=0;
@@ -93,7 +111,7 @@ int linearis_kereses(){
         i++;
     }
     if (i<aSize) {
-        cout<<"10-nel nagyobb elem az"<<i<<". elem"<<endl;
+        cout<<"10-nel nagyobb elem az "<<i+1<<". elem"<<endl;
     } else {
         cout<<"Nincs 10-nel nagyobb elem a tombben"<<endl;
     }
@@ -101,7 +119,7 @@ int linearis_kereses(){
     return 0;
 }
 
-int megszamlalas(){
+int megszamlalas(){ // 5
     // Bigger than 10
     int sum=0;
     const int cond=10; // Condition
@@ -115,7 +133,7 @@ int megszamlalas(){
     return 0;
 }
 
-int maximumkivalasztas(){
+int maximumkivalasztas(){ // 6
     // !!! maxPos has to be the same type as the array !!!
     
     // Initiating the position of the largest element
@@ -128,28 +146,39 @@ int maximumkivalasztas(){
             maxPos=c;
         }
     }
-    cout<<"Az elso legnagyobb elem: "<<a[maxPos+1]<<". Helye: "<<maxPos<<endl;
+    cout<<"Az elso legnagyobb elem: "<<a[maxPos]<<". Helye: "<<maxPos+1<<endl;
     
     return 0;
 }
 
-int kivalogatas(){
+int kivalogatas(){ // 7
+    
+    // ============= FAILED =============
+    //  I don't know what it's doing...
+    // ============= FAILED =============
+    
     // Bigger than 10
     const int cond=10; // Condition
+    
     // Secondary array
-        // How big should it be?
+                        // How big should it be?
     int b[aSize];
+    
+    // ============= BUG =============
+    // It'll print the trash after the result, because I can't specify its size.
+    // ============= BUG =============
+    
     // Secondary array's index
-    int j=0;
+    int j=-1;
     for (int i=0; i<aSize; i++) {
         if (a[i]>cond) {
             j++;
-            b[j]=i;
+            b[j]=i+1;
         }
     }
     
     // Get size of 'b' array
-        // Doesn't know which type the 'b' array will be
+                                // Doesn't know which type the 'b' array will be
     int bSize = sizeof(b)/sizeof(b[0]);
     
     // Printing 'b' array
@@ -165,12 +194,11 @@ int kivalogatas(){
     return 0;
 }
 
-int buborekrendezes(){
+int buborekrendezes(){ // 8
     int temp;
     for (int i=0; i<aSize-1; i++) {
         for (int j=0; j<aSize-i; j++) {
-            
-            // TODO
+            // Swap two elements if the condition's true
             if (a[j]>a[j+1]) {
                 temp=a[j+1];
                 a[j+1]=a[j];
@@ -179,27 +207,24 @@ int buborekrendezes(){
         }
     }
     
+    
+    // ============= BUG =============
+    //  Why the f*ck doesn't it print it when it has a manual array?!
+    // ============= BUG =============
+    
     // Printing 'a' array
-    for (int c=0; c < aSize; c++) {
-        // Don't print comma after the last element of the array
-        if (aSize-1 != c) {
-            cout<<a[c]<<", ";
-        } else {
-            cout<<a[c]<<endl;
-        }
-    }
+    printA();
     
     return 0;
 }
 
-int kozvetlen_kivalasztas(){
+int kozvetlen_kivalasztas(){ // 9
     int temp;
     
     for (int i=0; i<aSize-1; i++) {
-        for (int j=0; j<aSize; j++) {
-            
-            // TODO
-            if (a[j]>a[i]) {
+        for (int j=i+1; j<aSize; j++) {
+            // Swap two elements if the condition's true
+            if (a[j]<a[i]) {
                 temp=a[i];
                 a[i]=a[j];
                 a[j]=temp;
@@ -208,17 +233,23 @@ int kozvetlen_kivalasztas(){
     }
     
     // Printing 'a' array
-    for (int c=0; c < aSize; c++) {
-        // Don't print comma after the last element of the array
-        if (aSize-1 != c) {
-            cout<<a[c]<<", ";
-        } else {
-            cout<<a[c]<<endl;
-        }
-    }
+    printA();
     
     return 0;
 }
+
+
+
+int fileAction(){ // 11
+    
+    // ==============
+    //      TODO
+    // ==============
+    
+    return 0;
+}
+
+
 
 
 int userInp(){
@@ -232,8 +263,6 @@ int userInp(){
 
 
 int main(){
-    
-    
     // Initiating randomization
     srand (time(NULL));
     
@@ -287,6 +316,9 @@ int main(){
         case 10:
             faktorialis();
             break;
+        case 11:
+            fileAction();
+            break;
         default:
             userInp();
             break;
@@ -295,7 +327,8 @@ int main(){
     // STARTS AFTER THIS
     // ------------------
     
-
+    // readFile.close();
+    // writeFile.close();
     return 0;
 }
 

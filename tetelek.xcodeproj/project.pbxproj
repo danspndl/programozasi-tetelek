@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BE3C3A731C6F604A00279912 /* fileInput.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fileInput.txt; sourceTree = "<group>"; };
 		BE9296101C6F47700043C6BE /* tetelek */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tetelek; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE9296131C6F47700043C6BE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +58,7 @@
 		BE9296121C6F47700043C6BE /* tetelek */ = {
 			isa = PBXGroup;
 			children = (
+				BE3C3A731C6F604A00279912 /* fileInput.txt */,
 				BE9296131C6F47700043C6BE /* main.cpp */,
 			);
 			path = tetelek;
@@ -237,6 +239,7 @@
 				BE9296191C6F47700043C6BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
