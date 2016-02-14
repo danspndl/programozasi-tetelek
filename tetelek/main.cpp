@@ -49,9 +49,25 @@ void randomArray(){
 
 void fromFileArray(){
     // Filling up the 'a' array
-    for (int i=0; i<aSize; i++) {
-        // Here goes the content of the file
-    }
+ //   for (int i=0; i<aSize; i++) {
+ //       // Here goes the content of the file
+ //   }
+    
+//    string line;
+//    ifstream myfile("fileInput.txt");
+//    if (myfile.is_open()){
+//        while (getline(myfile,line)){
+//            cout << line << '\n';
+//        }
+//        myfile.close();
+//    } else{
+//        cout<<"Unable to open file"<<endl;
+//    }
+    
+//    for (int i=0; i<5; i++) {
+//        cout<<myArray[i]<<", ";
+//    }
+    
 }
 
 
@@ -156,23 +172,13 @@ void maximumkivalasztas(){ // 6
 
 void kivalogatas(){ // 7
     
-    // ============= FAILED =============
-    //  I don't know what it's doing...
-    // ============= FAILED =============
-    
     // Bigger than 10
     const int cond=10; // Condition
     
     // Secondary array
-                        // How big should it be?
-    int b[aSize];
+    int b[aSize];               // How big should it be?
     
-    // ============= BUG =============
-    // It'll print the trash after the result, because I can't specify its size.
-    // ============= BUG =============
-    
-    // Secondary array's index
-    int j=-1;
+    int j=-1; // Secondary array's index
     for (int i=0; i<aSize; i++) {
         if (a[i]>cond) {
             j++;
@@ -180,14 +186,11 @@ void kivalogatas(){ // 7
         }
     }
     
-    // Get size of 'b' array
-                                // Doesn't know which type the 'b' array will be
-    int bSize = sizeof(b)/sizeof(b[0]);
-    
     // Printing 'b' array
-    for (int c=0; c < bSize; c++) {
+    // The end var is the 'b' array's counter ('j')
+    for (int c=0; c < (j+1); c++) {
         // Don't print comma after the last element of the array
-        if (bSize-1 != c) {
+        if (j != c) {
             cout<<b[c]<<", ";
         } else {
             cout<<b[c]<<endl;
