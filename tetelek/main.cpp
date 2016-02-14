@@ -9,9 +9,8 @@
 
 //
 // TODO
-//  - Choose input method (random array - manual array - array from file)
 //  - Make array from file
-//  - Figure out why doesn't 8 work, when it has a manual array
+//  - Figure out why doesn't 8 work
 //  - Fix 7
 
 #include <iostream>
@@ -24,19 +23,39 @@ using namespace std;
 
     // Initiating array
     int a[10];
-    // int a[10]={1,11,314,2,5,5,7,8,14,22}; // Manual array
 
     // Get size of (global) 'a' array
     int aSize = sizeof(a)/sizeof(a[0]);
 
-
-    // ifstream readFile("fileInput.txt");
-    // ofstream writeFile("fileInput.txt");
-
-// ------------------------
+// ========================================
+// ========================================
 
 
-int printA(){
+void manualArray(){
+    // Filling up the 'a' array
+  //  for (int i=0; i<aSize; i++) {
+  //      a[i]=i*2;
+  //  }
+    
+    a[0]=1; a[1]=11; a[2]=314; a[3]=2; a[4]=5; a[5]=5; a[6]=7; a[7]=8; a[8]=14; a[9]=22;
+}
+
+void randomArray(){
+    // Filling up the 'a' array
+    for (int i=0; i<10; i++) {
+        a[i] = rand() % 50 + 1;
+    }
+}
+
+void fromFileArray(){
+    // Filling up the 'a' array
+    for (int i=0; i<aSize; i++) {
+        // Here goes the content of the file
+    }
+}
+
+
+void printA(){ // Prints 'a' array
     for (int c=0; c < aSize; c++) {
         // Don't print comma after the last element of the array
         if (aSize-1 != c) {
@@ -45,21 +64,17 @@ int printA(){
             cout<<a[c]<<endl;
         }
     }
-    
-    return 0;
 }
 
-int osszegzes(){ // 1
+void osszegzes(){ // 1
     int sum=0;
     for (int i=0; i<aSize; i++) {
         sum+=a[i];
     }
     cout<<"Tomb osszege: "<<sum<<endl;
-    
-    return 0;
 }
 
-int faktorialis(){ // 10
+void faktorialis(){ // 10
     int fakt;
     cout<<"Hany faktorialis: ";
     cin>>fakt;
@@ -69,11 +84,9 @@ int faktorialis(){ // 10
         result*=i;
     }
     cout<<result<<endl;
-    
-    return 0;
 }
 
-int eldontes(){ // 2
+void eldontes(){ // 2
     // Bigger than 10
     const int cond=10; // Condition
     int i=0;
@@ -87,11 +100,9 @@ int eldontes(){ // 2
     } else {
         cout<<"nincs benne 10-nel nagyobb elem"<<endl;
     }
-    
-    return 0;
 }
 
-int kivalasztas(){ // 3
+void kivalasztas(){ // 3
     // Bigger than 10
     const int cond=10; // Condition
     int i=0;
@@ -99,11 +110,9 @@ int kivalasztas(){ // 3
         i++;
     }
     cout<<"10-nel nagyobb elem az "<<i+1<<". elem"<<endl;
-    
-    return 0;
 }
 
-int linearis_kereses(){ // 4
+void linearis_kereses(){ // 4
     // Bigger than 10
     const int cond=10; // Condition
     int i=0;
@@ -115,11 +124,9 @@ int linearis_kereses(){ // 4
     } else {
         cout<<"Nincs 10-nel nagyobb elem a tombben"<<endl;
     }
-    
-    return 0;
 }
 
-int megszamlalas(){ // 5
+void megszamlalas(){ // 5
     // Bigger than 10
     int sum=0;
     const int cond=10; // Condition
@@ -129,11 +136,9 @@ int megszamlalas(){ // 5
         }
     }
     cout<<sum<<" darab 10-nel nagyobb elem van a tombben"<<endl;
-
-    return 0;
 }
 
-int maximumkivalasztas(){ // 6
+void maximumkivalasztas(){ // 6
     // !!! maxPos has to be the same type as the array !!!
     
     // Initiating the position of the largest element
@@ -147,11 +152,9 @@ int maximumkivalasztas(){ // 6
         }
     }
     cout<<"Az elso legnagyobb elem: "<<a[maxPos]<<". Helye: "<<maxPos+1<<endl;
-    
-    return 0;
 }
 
-int kivalogatas(){ // 7
+void kivalogatas(){ // 7
     
     // ============= FAILED =============
     //  I don't know what it's doing...
@@ -190,11 +193,9 @@ int kivalogatas(){ // 7
             cout<<b[c]<<endl;
         }
     }
-    
-    return 0;
 }
 
-int buborekrendezes(){ // 8
+void buborekrendezes(){ // 8
     int temp;
     for (int i=0; i<aSize-1; i++) {
         for (int j=0; j<aSize-i; j++) {
@@ -214,11 +215,9 @@ int buborekrendezes(){ // 8
     
     // Printing 'a' array
     printA();
-    
-    return 0;
 }
 
-int kozvetlen_kivalasztas(){ // 9
+void kozvetlen_kivalasztas(){ // 9
     int temp;
     
     for (int i=0; i<aSize-1; i++) {
@@ -234,23 +233,30 @@ int kozvetlen_kivalasztas(){ // 9
     
     // Printing 'a' array
     printA();
-    
-    return 0;
 }
 
 
 
-int fileAction(){ // 11
+void fileAction(){ // 11
     
     // ==============
     //      TODO
     // ==============
-    
-    return 0;
+
 }
 
 
-
+int chooseInp(){
+    // Asking user for input
+    
+    cout<<"1. Megadott tomb"<<endl;
+    cout<<"2. Veletlen tomb"<<endl;
+    cout<<"3. Fajlbol"<<endl;
+    cout<<"Forras tipusa: ";
+    cin>>userInput;
+    
+    return userInput;
+}
 
 int userInp(){
     // Asking user for input
@@ -265,25 +271,28 @@ int userInp(){
 int main(){
     // Initiating randomization
     srand (time(NULL));
-    
-    // Filling up the 'a' array
-    for (int i=0; i<10; i++) {
-        // Change this to change the output
-        a[i] = rand() % 50 + 1;
-    }
-    
-    // Printing array items
-    for (int c=0; c < aSize; c++) {
-        // Don't print comma after the last element of the array
-        if (aSize-1 != c) {
-            cout<<a[c]<<", ";
-        } else {
-            cout<<a[c]<<endl;
-        }
-    }
 
-    userInp();
+    chooseInp();
+    // Choose input method
+    switch (userInput) {
+        case 1:
+            manualArray();
+            break;
+        case 2:
+            randomArray();
+            break;
+        case 3:
+            fromFileArray();
+            break;
+        default:
+            userInp();
+            break;
+    }
     
+    // Print 'a' array
+    printA();
+    
+    userInp();
     // Menu for the user input
     switch (userInput) {
         case 1:
