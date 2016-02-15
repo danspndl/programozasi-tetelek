@@ -10,14 +10,19 @@
 //
 // TODO
 //  - Make array from file
-//  - Figure out why doesn't 8 work
-//  - Fix 7
+//  + Figure out why doesn't 8 work
+//  + Fix 7
 
 #include <iostream>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+#include <string>
+
 #include <fstream>
 using namespace std;
 
-// Global variables
+// Global variables/* time */
     // Initiating user input
     int userInput;
 
@@ -27,6 +32,8 @@ using namespace std;
     // Get size of (global) 'a' array
     int aSize = sizeof(a)/sizeof(a[0]);
 
+    // Inintiating file handling
+    fstream fromFileInput("fileInput.txt");
 // ========================================
 // ========================================
 
@@ -36,11 +43,14 @@ void manualArray(){
   //  for (int i=0; i<aSize; i++) {
   //      a[i]=i*2;
   //  }
-    
+
     a[0]=1; a[1]=11; a[2]=314; a[3]=2; a[4]=5; a[5]=5; a[6]=7; a[7]=8; a[8]=14; a[9]=22;
 }
 
 void randomArray(){
+    // Initiating randomization
+    srand (time(NULL));
+
     // Filling up the 'a' array
     for (int i=0; i<10; i++) {
         a[i] = rand() % 50 + 1;
@@ -48,28 +58,32 @@ void randomArray(){
 }
 
 void fromFileArray(){
-    // Filling up the 'a' array
- //   for (int i=0; i<aSize; i++) {
- //       // Here goes the content of the file
- //   }
-    
-//    string line;
-//    ifstream myfile("fileInput.txt");
-//    if (myfile.is_open()){
-//        while (getline(myfile,line)){
-//            cout << line << '\n';
-//        }
-//        myfile.close();
-//    } else{
-//        cout<<"Unable to open file"<<endl;
-//    }
-    
-//    for (int i=0; i<5; i++) {
-//        cout<<myArray[i]<<", ";
-//    }
-    
-}
+    string lineFromFile;
 
+    if (fromFileInput.is_open()){
+        while (!fromFileInput.eof()){
+            cout << lineFromFile << '\n';
+            getline(fromFileInput,lineFromFile);
+        }
+    } else{
+        cout<<"Unable to open file"<<endl;
+    }
+
+    // Add lineFromFile to the 'a' array
+    for(int i=0;i<aSize*3;i+=3){
+        a[i]=lineFromFile.substr(i, 3);
+    }
+
+//
+//  get input into int and put them into array instead of a var
+//
+    // Delete comma and space from the end of the elements
+    for(int i=0;i<aSize;i++){
+        string temp="";
+        temp=a[i].substr(1, 1);
+        a[i]=stoi(temp);
+    }
+}
 
 void printA(){ // Prints 'a' array
     for (int c=0; c < aSize; c++) {
@@ -95,7 +109,7 @@ void faktorialis(){ // 10
     cout<<"Hany faktorialis: ";
     cin>>fakt;
     int result=1;
-    
+
     for (int i=2; i<=fakt; i++) {
         result*=i;
     }
@@ -156,10 +170,10 @@ void megszamlalas(){ // 5
 
 void maximumkivalasztas(){ // 6
     // !!! maxPos has to be the same type as the array !!!
-    
+
     // Initiating the position of the largest element
     int maxPos=a[0];
-    
+
     // Inspecting array for the largest element
     for (int c=1; c < aSize; c++) {
         // Checking whether the current element is larger than the current largestt
@@ -171,13 +185,13 @@ void maximumkivalasztas(){ // 6
 }
 
 void kivalogatas(){ // 7
-    
+
     // Bigger than 10
     const int cond=10; // Condition
-    
+
     // Secondary array
     int b[aSize];               // How big should it be?
-    
+
     int j=-1; // Secondary array's index
     for (int i=0; i<aSize; i++) {
         if (a[i]>cond) {
@@ -185,7 +199,7 @@ void kivalogatas(){ // 7
             b[j]=i+1;
         }
     }
-    
+
     // Printing 'b' array
     // The end var is the 'b' array's counter ('j')
     for (int c=0; c < (j+1); c++) {
@@ -201,7 +215,7 @@ void kivalogatas(){ // 7
 void buborekrendezes(){ // 8
     int temp;
     for (int i=0; i<aSize-1; i++) {
-        for (int j=0; j<aSize-i; j++) {
+        for (int j=0; j<aSize-i-1; j++) {
             // Swap two elements if the condition's true
             if (a[j]>a[j+1]) {
                 temp=a[j+1];
@@ -210,19 +224,19 @@ void buborekrendezes(){ // 8
             }
         }
     }
-    
-    
+
+
     // ============= BUG =============
-    //  Why the f*ck doesn't it print it when it has a manual array?!
+    //
     // ============= BUG =============
-    
+
     // Printing 'a' array
     printA();
 }
 
 void kozvetlen_kivalasztas(){ // 9
     int temp;
-    
+
     for (int i=0; i<aSize-1; i++) {
         for (int j=i+1; j<aSize; j++) {
             // Swap two elements if the condition's true
@@ -233,7 +247,7 @@ void kozvetlen_kivalasztas(){ // 9
             }
         }
     }
-    
+
     // Printing 'a' array
     printA();
 }
@@ -241,7 +255,7 @@ void kozvetlen_kivalasztas(){ // 9
 
 
 void fileAction(){ // 11
-    
+
     // ==============
     //      TODO
     // ==============
@@ -251,13 +265,13 @@ void fileAction(){ // 11
 
 int chooseInp(){
     // Asking user for input
-    
+
     cout<<"1. Megadott tomb"<<endl;
     cout<<"2. Veletlen tomb"<<endl;
     cout<<"3. Fajlbol"<<endl;
     cout<<"Forras tipusa: ";
     cin>>userInput;
-    
+
     return userInput;
 }
 
@@ -266,15 +280,12 @@ int userInp(){
 
     cout<<"Tetel szama: ";
     cin>>userInput;
-    
+
     return userInput;
 }
 
 
 int main(){
-    // Initiating randomization
-    srand (time(NULL));
-
     chooseInp();
     // Choose input method
     switch (userInput) {
@@ -291,10 +302,10 @@ int main(){
             userInp();
             break;
     }
-    
+
     // Print 'a' array
     printA();
-    
+
     userInp();
     // Menu for the user input
     switch (userInput) {
@@ -335,12 +346,12 @@ int main(){
             userInp();
             break;
     }
-    
+
     // STARTS AFTER THIS
     // ------------------
-    
-    // readFile.close();
-    // writeFile.close();
+
+    // Closing file handling
+    fromFileInput.close();
     return 0;
 }
 
